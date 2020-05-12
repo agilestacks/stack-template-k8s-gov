@@ -14,6 +14,9 @@ components:
   - name: tiller
     source:
       dir: components/tiller
+  - name: external-dns
+    source:
+      dir: components/external-dns
   - name: automation-tasks-namespace
     source:
       dir: components/namespace
@@ -29,11 +32,13 @@ lifecycle:
     - dns-zone
     - stack-k8s-aws
     - tiller
+    - external-dns
     - automation-tasks-namespace
   mandatory:
     - dns-zone
     - stack-k8s-aws
     - tiller
+    - external-dns
     - automation-tasks-namespace
 outputs:
   - name: stack-k8s-aws:dns.domain
