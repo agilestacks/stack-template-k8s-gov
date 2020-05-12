@@ -1,0 +1,56 @@
+---
+version: 1
+kind: stack
+meta:
+  name: happy-meal:1
+  brief: Kubernetes in AWS GovCloud with DevOps services and Tools
+components:
+  - name: dns-zone
+    source:
+      dir: components/dns-zone
+  - name: stack-k8s-aws
+    source:
+      dir: stack-k8s-aws
+  - name: tiller
+    source:
+      dir: components/tiller
+  - name: automation-tasks-namespace
+    source:
+      dir: components/namespace
+requires:
+  - aws
+provides:
+  - kubernetes
+lifecycle:
+  verbs:
+    - deploy
+    - undeploy
+  order:
+    - stack-k8s-aws
+    - tiller
+    - automation-tasks-namespace
+  mandatory:
+    - stack-k8s-aws
+    - tiller
+    - automation-tasks-namespace
+outputs:
+  - name: stack-k8s-aws:dns.domain
+    brief: Stack domain
+  - name: stack-k8s-aws:kubernetes.api.endpoint
+    brief: Kubernetes API endpoint
+  - name: stack-k8s-aws:kubernetes.api.caCert
+  - name: stack-k8s-aws:kubernetes.api.clientCert
+  - name: stack-k8s-aws:kubernetes.api.clientKey
+  - name: cloud.kind
+  - name: cloud.region
+  - name: cloud.availabilityZone
+  - name: stack-k8s-aws:cloud.role.master
+  - name: stack-k8s-aws:cloud.role.worker
+  - name: stack-k8s-aws:cloud.vpc.id
+  - name: stack-k8s-aws:cloud.vpc.cidr
+  - name: stack-k8s-aws:cloud.vpc.master.subnet.id
+  - name: stack-k8s-aws:cloud.vpc.master.sg.id
+  - name: stack-k8s-aws:cloud.vpc.worker.subnet.id
+  - name: stack-k8s-aws:cloud.vpc.worker.subnet.ids
+  - name: stack-k8s-aws:cloud.vpc.worker.sg.id
+  - name: stack-k8s-aws:cloud.iam.worker.instanceProfile

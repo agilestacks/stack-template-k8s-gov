@@ -1,0 +1,70 @@
+---
+parameters:
+  - name: component.kubernetes
+    parameters:
+      - name: bastionHost
+        value: false
+      - name: natEipAllocations
+        value: "[]"
+      - name: natAddressPool
+        value: " "
+      - name: existingVpc
+        value: " "
+      - name: vpcCidrBlock
+        value: "10.0.0.0/16"
+      - name: existingMasterSubnetIds
+        value: "[]"
+      - name: existingWorkerSubnetIds
+        value: "[]"
+      - name: multiAz
+        value: false
+  - name: component.kubernetes.master
+    parameters:
+      - name: count
+        value: 1
+      - name: size
+        value: "t3.medium"
+      - name: spotPrice
+        default: ""
+        value: ""
+      - name: elb
+        value: true
+  - name: component.kubernetes.worker
+    parameters:
+      - name: count
+        value: 2
+      - name: size
+        value: "m5.large"
+      - name: spotPrice
+        value: ""
+      - name: natGw
+        value: false
+      - name: mixedAsg
+        value: false
+      - name: onDemandBase
+        value: 0
+      - name: onDemandAboveBase
+        value: 0
+      - name: mixedSize1
+        value: "t3.large"
+      - name: mixedSize2
+        value: "m4.large"
+      - name: mixedSize3
+        value: "c5.large"
+      - name: mixedSize4
+        value: "r5.large"
+  - name: component.kubernetes.etcd
+    parameters:
+      - name: count
+        value: 1
+      - name: size
+        value: "t3.small"
+      - name: spotPrice
+        default: ""
+        value: ""
+      - name: internal
+        value: false
+  - name: component.cert-manager
+    parameters:
+    - name: defaultIssuerName
+      value: letsencrypt-prod-dns

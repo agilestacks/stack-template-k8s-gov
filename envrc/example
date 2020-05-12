@@ -1,0 +1,15 @@
+export AWS_AZ='us-east-2c'
+export AWS_DEFAULT_REGION='us-east-2'
+export BASE_DOMAIN='cloud-account-name.superhub.io'
+# Use `hub api environment get` to obtain Dex parameters
+# You must have Write or Admin role on the Environment assigned to see them
+export DEX_OKTA_APP_CLIENT_ID='unset'
+export DEX_OKTA_APP_CLIENT_SECRET='unset'
+export DEX_OKTA_APP_ID='unset'
+export DEX_OKTA_APP_ISSUER='unset'
+export KEYPAIR='agilestacks'
+export NAME='platform'
+export STACK_NAME='kubernetes-platform'
+export STACK_PARAMS='params/platform.cloud-account-name.superhub.io.yaml'
+export STATE_BUCKET='agilestacks.cloud-account-name.superhub.io'
+export STATE_REGION='us-east-2'
