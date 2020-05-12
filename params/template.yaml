@@ -59,7 +59,7 @@ parameters:
       - name: master.count
         default: '3'
       - name: master.elb
-        default: 'false'
+        default: 'true'
       - name: master.size
         default: r4.large
       - name: master.spotPrice
@@ -196,4 +196,3 @@ parameters:
         value: initial
       - name: volume.size
         value: ${component.kubernetes.worker.volume.size}
-        
