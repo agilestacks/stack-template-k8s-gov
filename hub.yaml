@@ -26,10 +26,12 @@ lifecycle:
     - deploy
     - undeploy
   order:
+    - dns-zone
     - stack-k8s-aws
     - tiller
     - automation-tasks-namespace
   mandatory:
+    - dns-zone
     - stack-k8s-aws
     - tiller
     - automation-tasks-namespace
