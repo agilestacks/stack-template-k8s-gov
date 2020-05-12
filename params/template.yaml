@@ -1,0 +1,199 @@
+---
+parameters:
+  - name: component.namespace
+    component: automation-tasks-namespace
+    parameters:
+    - name: name
+      value: automation-tasks
+  - name: component.acm
+    component: acm
+    parameters:
+      - name: domain
+        value: '${dns.name}.${dns.baseDomain}'
+      - name: additionalNames
+        value: >
+          app.${component.acm.domain} *.app.${component.acm.domain}
+          apps.${component.acm.domain} *.apps.${component.acm.domain}
+          auth.${component.acm.domain} *.${component.acm.domain}
+          *.svc.${component.acm.domain}
+  - name: component.dex
+    parameters:
+      - name: okta.appId
+        fromEnv: DEX_OKTA_APP_ID
+      - name: okta.clientId
+        fromEnv: DEX_OKTA_APP_CLIENT_ID
+      - name: okta.clientSecret
+        fromEnv: DEX_OKTA_APP_CLIENT_SECRET
+      - name: okta.issuer
+        fromEnv: DEX_OKTA_APP_ISSUER
+  - name: component.ingress
+    parameters:
+      - name: dashboard
+        value: 'true'
+      - name: ssoUrlPrefix
+        value: apps
+      - name: urlPrefix
+        value: app
+  - name: component.jenkins
+    parameters:
+      - name: namespace
+        value: jenkins
+  - name: component.kubernetes
+    parameters:
+      - name: bastionHost
+        default: 'false'
+      - name: etcd.count
+        default: '3'
+      - name: etcd.internal
+        value: 'false'
+      - name: etcd.size
+        default: t2.small
+      - name: etcd.spotPrice
+        default: ''
+      - name: existingMasterSubnetIds
+        default: '[]'
+      - name: existingVpc
+        default: ''
+      - name: existingWorkerSubnetIds
+        default: '[]'
+      - name: master.count
+        default: '3'
+      - name: master.elb
+        default: 'false'
+      - name: master.size
+        default: r4.large
+      - name: master.spotPrice
+        default: ''
+      - name: multiAz
+        default: 'false'
+      - name: vpcCidrBlock
+        default: 10.0.0.0/16
+      - name: worker.count
+        default: '3'
+      - name: worker.maxCount
+        value: ${component.kubernetes.worker.count}
+      - name: worker.size
+        default: r4.large
+      - name: worker.autoscaling.enabled
+        value: 'false'
+      - name: worker.mixed.spotAllocationStrategy
+        value: capacity-optimized
+      - name: worker.mixed.onDemandBaseCapacity
+        value: '0'
+      - name: worker.mixed.onDemandPercentageAboveBaseCapacity
+        value: '0'
+      - name: worker.volume.size
+        value: '50'
+  - name: component.minio
+    parameters:
+      - name: secretKey
+        fromEnv: COMPONENT_MINIO_SECRET_KEY
+  - name: component.mongodb
+    component: mongodb
+    parameters:
+      - name: database
+        value: mongodb
+      - name: password
+        fromEnv: COMPONENT_MONGODB_PASSWORD
+      - name: storageType
+        value: ebs
+      - name: user
+        value: mongodb
+      - name: volumeSize
+        value: 8Gi
+      - name: volumeType
+        value: gp2
+  - name: component.pgweb
+    component: postgresql-pgweb
+    parameters:
+      - name: name
+        value: postgresql-pgweb
+  - name: component.pgweb
+    component: postgresql-rds-pgweb
+    parameters:
+      - name: name
+        value: postgresql-rds-pgweb
+  - name: component.postgresql
+    component: postgresql
+    parameters:
+      - name: database
+        value: postgres
+      - name: name
+        value: postgresql
+      - name: namespace
+        value: postgresql
+      - name: password
+        fromEnv: COMPONENT_POSTGRESQL_PASSWORD
+      - name: port
+        value: 5432
+      - name: storageType
+        value: ebs
+      - name: user
+        value: postgres
+      - name: volumeSize
+        value: 8Gi
+      - name: volumeType
+        value: gp2
+  - name: component.postgresql
+    component: postgresql-rds
+    parameters:
+      - name: database
+        value: postgres
+      - name: name
+        value: postgresql-rds
+      - name: password
+        fromEnv: COMPONENT_POSTGRESQL_RDS_PASSWORD
+        default: postgres
+      - name: rds.instanceType
+        value: db.t2.small
+      - name: user
+        value: postgres
+      - name: volumeSize
+        value: '20'
+      - name: volumeType
+        value: gp2
+  - name: component.redis
+    parameters:
+      - name: ha.enabled
+        value: 'false'
+      - name: ha.master
+        value: '1'
+      - name: ha.sentinel
+        value: '3'
+      - name: ha.slave
+        value: '1'
+      - name: usePassword
+        value: 'false'
+      - name: volumeSize
+        value: 8Gi
+  - name: component.spinnaker
+    parameters:
+      - name: namespace
+        value: spinnaker
+  - name: component.sysdig
+    parameters:
+      - name: license
+        fromEnv: COMPONENT_SYSDIG_LICENSE
+  - name: component.wowza
+    parameters:
+      - name: license
+        fromEnv: COMPONENT_WOWZA_LICENSE
+  - name: component.worker-pool
+    parameters:
+      - name: autoscaling.enabled
+        value: ${component.kubernetes.worker.autoscaling.enabled}
+      - name: count
+        value: ${component.kubernetes.worker.count}
+      - name: instance.size
+        value: ${component.kubernetes.worker.size}
+      - name: mixed.spotAllocationStrategy
+        value: ${component.kubernetes.worker.mixed.spotAllocationStrategy}
+      - name: mixed.onDemandBaseCapacity
+        value: ${component.kubernetes.worker.mixed.onDemandBaseCapacity}
+      - name: mixed.onDemandPercentageAboveBaseCapacity
+        value: ${component.kubernetes.worker.mixed.onDemandPercentageAboveBaseCapacity}
+      - name: shortName
+        value: initial
+      - name: volume.size
+        value: ${component.kubernetes.worker.volume.size}
+        
