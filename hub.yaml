@@ -11,6 +11,9 @@ components:
   - name: stack-k8s-aws
     source:
       dir: stack-k8s-aws
+  - name: initial-workers
+    source:
+      dir: components/k8s-mixed-worker-nodes
   - name: tiller
     source:
       dir: components/tiller
@@ -31,12 +34,14 @@ lifecycle:
   order:
     - dns-zone
     - stack-k8s-aws
+    - initial-workers
     - tiller
     - external-dns
     - automation-tasks-namespace
   mandatory:
     - dns-zone
     - stack-k8s-aws
+    - initial-workers
     - tiller
     - external-dns
     - automation-tasks-namespace
