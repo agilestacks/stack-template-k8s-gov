@@ -41,39 +41,39 @@ parameters:
   - name: component.kubernetes
     parameters:
       - name: bastionHost
-        default: 'false'
+        value: 'false'
       - name: etcd.count
-        default: '3'
+        value: '3'
       - name: etcd.internal
         value: 'false'
       - name: etcd.size
-        default: t2.small
+        value: t2.small
       - name: etcd.spotPrice
-        default: ''
+        value: ''
       - name: existingMasterSubnetIds
-        default: '[]'
+        value: '[]'
       - name: existingVpc
-        default: ''
+        value: ''
       - name: existingWorkerSubnetIds
-        default: '[]'
+        value: '[]'
       - name: master.count
-        default: '3'
+        value: '3'
       - name: master.elb
-        default: 'true'
+        value: 'true'
       - name: master.size
-        default: r4.large
+        value: r4.large
       - name: master.spotPrice
-        default: ''
+        value: ''
       - name: multiAz
-        default: 'false'
+        value: 'false'
       - name: vpcCidrBlock
-        default: 10.0.0.0/16
+        value: 10.0.0.0/16
       - name: worker.count
-        default: '3'
+        value: '3'
       - name: worker.maxCount
         value: ${component.kubernetes.worker.count}
       - name: worker.size
-        default: r4.large
+        value: m5.large
       - name: worker.autoscaling.enabled
         value: 'false'
       - name: worker.mixed.spotAllocationStrategy
@@ -143,7 +143,7 @@ parameters:
         value: postgresql-rds
       - name: password
         fromEnv: COMPONENT_POSTGRESQL_RDS_PASSWORD
-        default: postgres
+        value: postgres
       - name: rds.instanceType
         value: db.t2.small
       - name: user
